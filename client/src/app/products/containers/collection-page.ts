@@ -11,9 +11,7 @@ import { Product } from '../models/product';
   selector: 'products-collection-page',
   template: `
     <h1>Products</h1>
-    <ul>
-      <li *ngFor="let product of products$ | async">{{ product.name }}</li>
-    </ul>
+    <app-product-preview-list [products]="products$ | async"></app-product-preview-list>
   `,
   styles: []
 })

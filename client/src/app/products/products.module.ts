@@ -5,6 +5,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
 
+import { ComponentsModule } from './components';
 import { CollectionEffects } from './effects/collection';
 
 import { CollectionPageComponent } from './containers/collection-page';
@@ -16,6 +17,7 @@ import { reducers } from './reducers';
 @NgModule({
   imports: [
     CommonModule,
+    ComponentsModule,
     HttpClientModule,
     RouterModule.forChild([
       { 
