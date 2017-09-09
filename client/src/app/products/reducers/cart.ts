@@ -30,8 +30,4 @@ export function reducer(state = initialState, action: cart.Actions): State {
   }
 }
 
-export const getItems = (state: State) => state.items;
 export const getIds = (state: State) => state.ids;
-export const getAll = createSelector(getItems, getIds, (items, ids) => {
-  return ids.map(id => items[id]);
-});

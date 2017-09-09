@@ -9,7 +9,12 @@ import { Product } from '../models/product';
         <img src="http://placehold.it/500x500">
           <md-grid-tile-footer>
             <span>{{ product.name }}</span>
-            <button md-icon-button (click)="onCartButtonClicked(product)"><md-icon>add_shopping_cart</md-icon></button>
+            <span *ngIf="existsInCart(product)">
+              <button md-icon-button (click)="onRemoveFromCart(product)"><md-icon>remove_shopping_cart</md-icon></button>
+            </span>
+            <span *ngIf="!existsInCart(product)">
+              <button md-icon-button (click)="onAddToCart(product)"><md-icon>add_shopping_cart</md-icon></button>
+            </span>
           </md-grid-tile-footer>
       </md-grid-tile>
     </md-grid-list>
@@ -20,9 +25,18 @@ import { Product } from '../models/product';
 })
 export class ProductPreviewListComponent {
   @Input() products: Product[];
+  @Input() cart: number[];
   @Output() add = new EventEmitter<Product>();
 
-  onCartButtonClicked(item: Product) {
+  existsInCart(item: Product) {
+    return this.cart.includes(item.id);
+  }
+
+  onAddToCart(item: Product) {
     this.add.emit(item); 
+  }
+
+  onRemoveFromCart(item: Product) {
+    //this.remove.emit(item);
   }
 }

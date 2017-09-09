@@ -13,6 +13,7 @@ import { Product } from '../models/product';
   template: `
     <h1>Products</h1>
     <app-product-preview-list 
+      [cart]="cart$ | async"
       [products]="products$ | async"
       (add)="addToCart($event)">
     </app-product-preview-list>
@@ -21,9 +22,11 @@ import { Product } from '../models/product';
 })
 export class CollectionPageComponent implements OnInit {
   products$: Observable<Product[]>;
+  cart$: Observable<number[]>;
 
   constructor(private store: Store<fromProducts.State>) {
     this.products$ = store.select(fromProducts.getProductCollection);
+    this.cart$ = store.select(fromProducts.getCartItemIds);
   }
 
   ngOnInit() {
