@@ -9,15 +9,14 @@ import {
   StoreRouterConnectingModule
 } from '@ngrx/router-store';
 
+import { CoreModule } from './core/core.module';
+
 import { routes } from './routes';
 import { reducers, metaReducers } from './reducers';
 
-import { AppComponent } from './app.component';
+import { AppComponent } from './core/containers/app';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -25,6 +24,7 @@ import { AppComponent } from './app.component';
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreRouterConnectingModule,
     EffectsModule.forRoot([]),
+    CoreModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
