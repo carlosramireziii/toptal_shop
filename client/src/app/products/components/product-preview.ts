@@ -4,7 +4,10 @@ import { Product } from '../models/product';
 @Component({
   selector: 'app-product-preview',
   template: `
-    <li>{{ product.name }}</li>
+    <md-grid-tile>
+      <img src="http://placehold.it/200x200">
+      <md-grid-tile-header>{{ product.name }}</md-grid-tile-header>
+    </md-grid-tile>
   `,
   styles: []
 })

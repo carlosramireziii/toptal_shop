@@ -4,9 +4,12 @@ import { Product } from '../models/product';
 @Component({
   selector: 'app-product-preview-list',
   template: `
-    <ul>
-      <app-product-preview *ngFor="let product of products" [product]="product"></app-product-preview>
-    </ul>
+    <md-grid-list cols="2" rowHeight="2:1">
+      <md-grid-tile *ngFor="let product of products">
+        <img src="http://placehold.it/300x300">
+        <md-grid-tile-header>{{ product.name }}</md-grid-tile-header>
+      </md-grid-tile>
+    </md-grid-list>
   `,
   styles: []
 })
