@@ -27,13 +27,9 @@ export const getCartState = createSelector(
   getProductsState,
   (state: ProductsState) => state.cart
 )
-export const getCartItems = createSelector(
+export const getCartQuantities = createSelector(
   getCartState,
-  fromCart.getItems
-)
-export const getCartItemIds = createSelector(
-  getCartState,
-  fromCart.getIds
+  fromCart.getQuantities
 )
 
 // Products selectors

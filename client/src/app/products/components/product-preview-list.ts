@@ -9,12 +9,11 @@ import { Product } from '../models/product';
         <img src="http://placehold.it/500x500">
           <md-grid-tile-footer>
             <span>{{ product.name }}</span>
-            <span *ngIf="existsInCart(product)">
-              <button md-icon-button (click)="onRemoveFromCart(product)"><md-icon>remove_shopping_cart</md-icon></button>
-            </span>
-            <span *ngIf="!existsInCart(product)">
+            <div>
               <button md-icon-button (click)="onAddToCart(product)"><md-icon>add_shopping_cart</md-icon></button>
-            </span>
+              <span>{{ quantityInCart(product) }}</span>
+              <button [disabled]="inCart(product) ? null : 'disabled'" md-icon-button (click)="onRemoveFromCart(product)"><md-icon>remove_shopping_cart</md-icon></button>
+            </div>
           </md-grid-tile-footer>
       </md-grid-tile>
     </md-grid-list>
@@ -25,11 +24,16 @@ import { Product } from '../models/product';
 })
 export class ProductPreviewListComponent {
   @Input() products: Product[];
-  @Input() cart: number[];
+  @Input() cart: {};
   @Output() add = new EventEmitter<Product>();
+  @Output() remove = new EventEmitter<Product>();
 
-  existsInCart(item: Product) {
-    return this.cart.includes(item.id);
+  inCart(product: Product) {
+    return this.quantityInCart(product) > 0;
+  }
+
+  quantityInCart(product: Product) {
+    return this.cart[product.id] || 0;
   }
 
   onAddToCart(item: Product) {
@@ -37,6 +41,6 @@ export class ProductPreviewListComponent {
   }
 
   onRemoveFromCart(item: Product) {
-    //this.remove.emit(item);
+    this.remove.emit(item);
   }
 }

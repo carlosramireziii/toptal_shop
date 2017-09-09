@@ -15,18 +15,19 @@ import { Product } from '../models/product';
     <app-product-preview-list 
       [cart]="cart$ | async"
       [products]="products$ | async"
-      (add)="addToCart($event)">
+      (add)="addToCart($event)"
+      (remove)="removeFromCart($event)">
     </app-product-preview-list>
   `,
   styles: []
 })
 export class CollectionPageComponent implements OnInit {
   products$: Observable<Product[]>;
-  cart$: Observable<number[]>;
+    cart$: Observable<{}>;
 
   constructor(private store: Store<fromProducts.State>) {
     this.products$ = store.select(fromProducts.getProductCollection);
-    this.cart$ = store.select(fromProducts.getCartItemIds);
+    this.cart$ = store.select(fromProducts.getCartQuantities);
   }
 
   ngOnInit() {
@@ -35,5 +36,9 @@ export class CollectionPageComponent implements OnInit {
 
   addToCart(item: Product) {
     this.store.dispatch(new cart.AddItem(item));
+  }
+
+  removeFromCart(item: Product) {
+    this.store.dispatch(new cart.RemoveItem(item));
   }
 }
