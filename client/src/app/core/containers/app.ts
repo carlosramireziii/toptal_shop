@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   template: `
     <app-toolbar></app-toolbar>
     <router-outlet></router-outlet>
-    <footer>&copy; 2017 Carlos Ramirez III</footer>
+    <footer class="mat-typography">&copy; 2017 Carlos Ramirez III</footer>
   `,
   styles: []
 })
