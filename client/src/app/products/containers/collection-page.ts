@@ -5,13 +5,17 @@ import { Observable } from 'rxjs/Observable';
 
 import * as fromProducts from '../reducers';
 import * as collection from '../actions/collection';
+import * as cart from '../actions/cart';
 import { Product } from '../models/product';
 
 @Component({
   selector: 'products-collection-page',
   template: `
     <h1>Products</h1>
-    <app-product-preview-list [products]="products$ | async"></app-product-preview-list>
+    <app-product-preview-list 
+      [products]="products$ | async"
+      (add)="addToCart($event)">
+    </app-product-preview-list>
   `,
   styles: []
 })
@@ -24,5 +28,9 @@ export class CollectionPageComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new collection.Load());
+  }
+
+  addToCart(item: Product) {
+    this.store.dispatch(new cart.AddItem(item));
   }
 }

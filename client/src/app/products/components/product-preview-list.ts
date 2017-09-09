@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '../models/product';
 
 @Component({
@@ -9,7 +9,7 @@ import { Product } from '../models/product';
         <img src="http://placehold.it/500x500">
           <md-grid-tile-footer>
             <span>{{ product.name }}</span>
-            <button md-icon-button><md-icon>add_shopping_cart</md-icon></button>
+            <button md-icon-button (click)="onCartButtonClicked(product)"><md-icon>add_shopping_cart</md-icon></button>
           </md-grid-tile-footer>
       </md-grid-tile>
     </md-grid-list>
@@ -20,4 +20,9 @@ import { Product } from '../models/product';
 })
 export class ProductPreviewListComponent {
   @Input() products: Product[];
+  @Output() add = new EventEmitter<Product>();
+
+  onCartButtonClicked(item: Product) {
+    this.add.emit(item); 
+  }
 }
