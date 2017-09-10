@@ -6,6 +6,7 @@ import { DataSource } from '@angular/cdk/collections';
 import { MdDialog } from '@angular/material';
 
 import { AddProductDialogComponent } from '../components/add-product-dialog';
+import { EditProductDialogComponent } from '../components/edit-product-dialog';
 
 import * as fromProducts from '../reducers';
 import * as collection from '../actions/collection';
@@ -31,7 +32,8 @@ import { Product } from '../models/product';
       <ng-container mdColumnDef="actions">
         <md-header-cell *mdHeaderCellDef> </md-header-cell>
         <md-cell *mdCellDef="let element"> 
-          <button md-button (click)="onDelete(element)"> Delete </button>
+          <button md-button (click)="onEditClick(element)"> Update </button>
+          <button md-button (click)="onDeleteClick(element)"> Delete </button>
         </md-cell>
       </ng-container>
 			<md-header-row *mdHeaderRowDef="['id', 'name', 'actions']"></md-header-row>
@@ -53,18 +55,30 @@ export class ProductsCollectionPageComponent implements OnInit {
 		this.dataSource = new ProductDataSource(this.products$);
   }
 
-  onSubmit(product: Product) {
-    console.log("products-collection-page", "onSubmit", product);
+  onCreate(product: Product) {
     this.store.dispatch(new collection.AddProduct(product));
+  }
+
+  onUpdate(product: Product) {
+    this.store.dispatch(new collection.UpdateProduct(product));
   }
 
   onAddClick() {
     let dialogRef = this.dialog.open(AddProductDialogComponent, {
-      data: { submitted: this.onSubmit.bind(this) }
+      data: { onCreate: this.onCreate.bind(this) }
     });
   }
 
-  onDelete(product) {
+  onEditClick(product) {
+    let dialogRef = this.dialog.open(EditProductDialogComponent, {
+      data: { 
+        product: product,
+        onUpdate: this.onUpdate.bind(this) 
+      }
+    });
+  }
+
+  onDeleteClick(product) {
     this.store.dispatch( new collection.RemoveProduct(product));
   }
 

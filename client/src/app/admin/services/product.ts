@@ -14,6 +14,11 @@ export class ProductService {
     return this.http.post(`http://dev.carlosramireziii.com:3001/products.json`, action.payload);
   }
 
+  update(action) {
+    console.log("update payload", action);
+    return this.http.patch(`http://dev.carlosramireziii.com:3001/products/${action.payload.id}`, action.payload);
+  }
+
   remove(action) {
     return this.http.delete(`http://dev.carlosramireziii.com:3001/products/${action.payload.id}`);
   }

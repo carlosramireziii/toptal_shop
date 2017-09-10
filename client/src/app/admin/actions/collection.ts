@@ -7,6 +7,9 @@ export const LOAD_FAIL = '[Admin Collection] Load Fail';
 export const ADD_PRODUCT = '[Collection] Add Product';
 export const ADD_PRODUCT_SUCCESS = '[Collection] Add Product Success';
 export const ADD_PRODUCT_FAIL = '[Collection] Add Product Fail';
+export const UPDATE_PRODUCT = '[Collection] Update Product';
+export const UPDATE_PRODUCT_SUCCESS = '[Collection] Update Product Success';
+export const UPDATE_PRODUCT_FAIL = '[Collection] Update Product Fail';
 export const REMOVE_PRODUCT = '[Collection] Remove Product';
 export const REMOVE_PRODUCT_SUCCESS = '[Collection] Remove Product Success';
 export const REMOVE_PRODUCT_FAIL = '[Collection] Remove Product Fail';
@@ -47,6 +50,26 @@ export class AddProductFail implements Action {
   constructor(public payload: Product) {}
 }
 
+// Update
+
+export class UpdateProduct implements Action {
+  readonly type = UPDATE_PRODUCT;
+
+  constructor(public payload: Product) {}
+}
+
+export class UpdateProductSuccess implements Action {
+  readonly type = UPDATE_PRODUCT_SUCCESS;
+
+  constructor(public payload: Product) {}
+}
+
+export class UpdateProductFail implements Action {
+  readonly type = UPDATE_PRODUCT_FAIL;
+
+  constructor(public payload: Product) {}
+}
+
 // Remove
 
 export class RemoveProduct implements Action {
@@ -74,6 +97,9 @@ export type Actions =
 	| AddProduct
 	| AddProductSuccess
 	| AddProductFail
+  | UpdateProduct
+  | UpdateProductSuccess
+  | UpdateProductFail
 	| RemoveProduct
 	| RemoveProductSuccess
 	| RemoveProductFail;

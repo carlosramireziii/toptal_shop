@@ -29,6 +29,14 @@ export class ProductCollectionEffects {
 			.catch(error => of(new collection.AddProductFail(error)))
 		);
 
+  @Effect()
+  updateProductInCollection$: Observable<Action> = this.actions$
+    .ofType(collection.UPDATE_PRODUCT)
+    .switchMap((payload) => this.productService.update(payload)
+      .map((product: Product) => new collection.UpdateProductSuccess(product))
+      .catch(error => of(new collection.UpdateProductFail(error)))
+    );
+
 	@Effect()
   removeProductFromCollection$: Observable<Action> = this.actions$
     .ofType(collection.REMOVE_PRODUCT)
@@ -36,6 +44,12 @@ export class ProductCollectionEffects {
 			.map((product: Product) => new collection.RemoveProductSuccess(product))
       .catch(error => of(new collection.RemoveProductFail(error)))
     );
+
+  @Effect()
+  refreshCollection$: Observable<Action> = this.actions$
+    .ofType(collection.ADD_PRODUCT_SUCCESS, collection.UPDATE_PRODUCT_SUCCESS)
+    .map((payload) => new collection.Load())
+    
 
   constructor(private actions$: Actions, private productService: ProductService) {}
 }

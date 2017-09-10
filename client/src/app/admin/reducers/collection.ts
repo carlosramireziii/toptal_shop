@@ -52,6 +52,7 @@ export function reducer(state = initialState, action: collection.Actions): State
       });
     }
 
+    case collection.UPDATE_PRODUCT_SUCCESS:
     default: {
       return state;
     }

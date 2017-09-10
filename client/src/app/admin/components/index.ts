@@ -5,9 +5,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { AddProductDialogComponent } from './add-product-dialog';
+import { EditProductDialogComponent } from './edit-product-dialog';
 
 export const COMPONENTS = [
-  AddProductDialogComponent
+  AddProductDialogComponent,
+  EditProductDialogComponent,
 ];
 
 @NgModule({
@@ -17,7 +19,7 @@ export const COMPONENTS = [
     ReactiveFormsModule,
     RouterModule,
   ],
-  entryComponents: [AddProductDialogComponent],
+  entryComponents: [AddProductDialogComponent, EditProductDialogComponent],
   declarations: COMPONENTS,
   exports: COMPONENTS,
 })
