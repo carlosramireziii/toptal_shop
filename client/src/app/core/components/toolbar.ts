@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-toolbar',
@@ -16,8 +17,8 @@ import { Component } from '@angular/core';
           <md-icon>more_vert</md-icon>
         </button>
         <md-menu #appMenu="mdMenu">
-          <button md-menu-item> Register </button>
-          <button md-menu-item> Login </button>
+          <button md-menu-item (click)="onClickRegister()"> Register </button>
+          <button md-menu-item (click)="onClickLogin()"> Login </button>
         </md-menu>
       </div>
     </md-toolbar>
@@ -27,4 +28,14 @@ import { Component } from '@angular/core';
     `.action-list { display: flex; flex-direction: row; align-items: center; }`
   ]
 })
-export class ToolbarComponent {}
+export class ToolbarComponent {
+  onClickRegister() {
+  //this.router.navigate(['auth/register']);
+  }
+
+  onClickLogin() {
+    this.router.navigate(['auth/login']);
+  }
+
+  constructor(private router: Router) {}
+}

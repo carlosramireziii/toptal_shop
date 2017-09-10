@@ -10,6 +10,7 @@ import {
 } from '@ngrx/router-store';
 
 import { CoreModule } from './core/core.module';
+import { AuthModule } from './auth/auth.module';
 
 import { routes } from './routes';
 import { reducers, metaReducers } from './reducers';
@@ -25,6 +26,7 @@ import { AppComponent } from './core/containers/app';
     StoreRouterConnectingModule,
     EffectsModule.forRoot([]),
     CoreModule.forRoot(),
+    AuthModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
