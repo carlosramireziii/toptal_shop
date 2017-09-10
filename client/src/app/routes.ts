@@ -9,5 +9,9 @@ export const routes: Routes = [
   {
     path: 'auth',
     loadChildren: './auth/auth.module#RootAuthModule',
+  },
+  {
+    path: 'admin',
+    loadChildren: './admin/admin.module#AdminModule',
   }
 ];
