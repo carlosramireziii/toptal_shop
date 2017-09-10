@@ -10,6 +10,10 @@ export class ProductService {
     return this.http.get(`http://dev.carlosramireziii.com:3001/products.json`);
   }
 
+  add(action) {
+    return this.http.post(`http://dev.carlosramireziii.com:3001/products.json`, action.payload);
+  }
+
   remove(action) {
     return this.http.delete(`http://dev.carlosramireziii.com:3001/products/${action.payload.id}`);
   }

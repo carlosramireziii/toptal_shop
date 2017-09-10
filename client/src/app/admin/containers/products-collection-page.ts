@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { DataSource } from '@angular/cdk/collections';
+import { MdDialog } from '@angular/material';
+
+import { AddProductDialogComponent } from '../components/add-product-dialog';
 
 import * as fromProducts from '../reducers';
 import * as collection from '../actions/collection';
@@ -11,7 +14,11 @@ import { Product } from '../models/product';
 @Component({
   selector: 'admin-products-collection-page',
   template: `
-    <h1> Admin Products </h1>
+    <md-toolbar color="primary">
+      <span class="mat-headline">Manage Products</span>
+      <span class="fill-remaining-space"></span>
+      <button md-fab (click)="onAddClick()"><md-icon>add</md-icon></button>
+    </md-toolbar>
     <md-table [dataSource]="dataSource">
 			<ng-container mdColumnDef="id">
 				<md-header-cell *mdHeaderCellDef> Id </md-header-cell>
@@ -31,19 +38,33 @@ import { Product } from '../models/product';
 			<md-row *mdRowDef="let row; columns: ['id', 'name', 'actions'];"></md-row>
     </md-table>
   `,
-  styles: []
+  styles: [
+  `
+  .fill-remaining-space { flex: 1 1 auto; }
+  `
+  ]
 })
 export class ProductsCollectionPageComponent implements OnInit {
   products$: Observable<Product[]>;
 	dataSource: {};
 
-  constructor(private store: Store<fromProducts.State>) {
+  constructor(public dialog: MdDialog, private store: Store<fromProducts.State>) {
     this.products$ = store.select(fromProducts.getProductCollection);
 		this.dataSource = new ProductDataSource(this.products$);
   }
 
+  onSubmit(product: Product) {
+    console.log("products-collection-page", "onSubmit", product);
+    this.store.dispatch(new collection.AddProduct(product));
+  }
+
+  onAddClick() {
+    let dialogRef = this.dialog.open(AddProductDialogComponent, {
+      data: { submitted: this.onSubmit.bind(this) }
+    });
+  }
+
   onDelete(product) {
-    console.log("delete", product);
     this.store.dispatch( new collection.RemoveProduct(product));
   }
 

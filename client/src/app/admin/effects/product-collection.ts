@@ -19,7 +19,15 @@ export class ProductCollectionEffects {
     .switchMap((payload) => this.productService.load()
       .map((products: Product[]) => new collection.LoadSuccess(products))
       .catch(error => of(new collection.LoadFail(error)))
-  );
+		);
+
+	@Effect()
+  addProductToCollection$: Observable<Action> = this.actions$
+    .ofType(collection.ADD_PRODUCT)
+		.switchMap((payload) => this.productService.add(payload)
+			.map((product: Product) => new collection.AddProductSuccess(product))
+			.catch(error => of(new collection.AddProductFail(error)))
+		);
 
 	@Effect()
   removeProductFromCollection$: Observable<Action> = this.actions$

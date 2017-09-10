@@ -4,6 +4,9 @@ import { Product } from '../models/product';
 export const LOAD = '[Admin Collection] Load';
 export const LOAD_SUCCESS = '[Admin Collection] Load Success';
 export const LOAD_FAIL = '[Admin Collection] Load Fail';
+export const ADD_PRODUCT = '[Collection] Add Product';
+export const ADD_PRODUCT_SUCCESS = '[Collection] Add Product Success';
+export const ADD_PRODUCT_FAIL = '[Collection] Add Product Fail';
 export const REMOVE_PRODUCT = '[Collection] Remove Product';
 export const REMOVE_PRODUCT_SUCCESS = '[Collection] Remove Product Success';
 export const REMOVE_PRODUCT_FAIL = '[Collection] Remove Product Fail';
@@ -22,6 +25,26 @@ export class LoadFail implements Action {
   readonly type = LOAD_FAIL;
 
   constructor(public payload: any) {}
+}
+
+// Add
+
+export class AddProduct implements Action {
+  readonly type = ADD_PRODUCT;
+
+  constructor(public payload: Product) {}
+}
+
+export class AddProductSuccess implements Action {
+  readonly type = ADD_PRODUCT_SUCCESS;
+
+  constructor(public payload: Product) {}
+}
+
+export class AddProductFail implements Action {
+  readonly type = ADD_PRODUCT_FAIL;
+
+  constructor(public payload: Product) {}
 }
 
 // Remove
@@ -48,6 +71,9 @@ export type Actions =
   | Load
   | LoadSuccess
   | LoadFail
+	| AddProduct
+	| AddProductSuccess
+	| AddProductFail
 	| RemoveProduct
 	| RemoveProductSuccess
 	| RemoveProductFail;

@@ -30,6 +30,7 @@ export function reducer(state = initialState, action: collection.Actions): State
       };
     }
 
+    case collection.ADD_PRODUCT_SUCCESS:
 		case collection.REMOVE_PRODUCT_FAIL: {
       const product = action.payload;
 
@@ -41,8 +42,9 @@ export function reducer(state = initialState, action: collection.Actions): State
         ids: [...state.ids, product.id],
       });
     }    
-
-		case collection.REMOVE_PRODUCT_SUCCESS: {
+    
+		case collection.REMOVE_PRODUCT_SUCCESS:
+    case collection.ADD_PRODUCT_FAIL: {
       const product = action.payload;
 
       return Object.assign({}, state, {

@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
+import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
 
+import { ComponentsModule } from './components';
 import { ProductCollectionEffects } from './effects/product-collection';
 
 import { ProductsCollectionPageComponent } from './containers/products-collection-page';
@@ -18,6 +20,8 @@ import { reducers } from './reducers';
   imports: [
     CommonModule, 
     MaterialModule, 
+    ComponentsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forChild([
       {
