@@ -11,7 +11,12 @@ import { Product } from '../models/product';
 @Component({
   selector: 'products-collection-page',
   template: `
-    <h1>Products</h1>
+    <md-sidenav mode="side" position="end" opened="open">
+      <app-shopping-list 
+        [cart]="cart$ | async"
+        [products]="products$ | async">
+      </app-shopping-list>
+    </md-sidenav>
     <app-product-preview-list 
       [cart]="cart$ | async"
       [products]="products$ | async"
