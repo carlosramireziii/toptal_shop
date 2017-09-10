@@ -9,4 +9,8 @@ export class ProductService {
   load() {
     return this.http.get(`http://dev.carlosramireziii.com:3001/products.json`);
   }
+
+  remove(action) {
+    return this.http.delete(`http://dev.carlosramireziii.com:3001/products/${action.payload.id}`);
+  }
 }

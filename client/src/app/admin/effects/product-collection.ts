@@ -21,5 +21,13 @@ export class ProductCollectionEffects {
       .catch(error => of(new collection.LoadFail(error)))
   );
 
+	@Effect()
+  removeProductFromCollection$: Observable<Action> = this.actions$
+    .ofType(collection.REMOVE_PRODUCT)
+		.switchMap((payload) => this.productService.remove(payload)
+			.map((product: Product) => new collection.RemoveProductSuccess(product))
+      .catch(error => of(new collection.RemoveProductFail(error)))
+    );
+
   constructor(private actions$: Actions, private productService: ProductService) {}
 }

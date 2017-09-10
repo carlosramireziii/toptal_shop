@@ -21,8 +21,14 @@ import { Product } from '../models/product';
 				<md-header-cell *mdHeaderCellDef> Name </md-header-cell>
 				<md-cell *mdCellDef="let element"> {{element.name}} </md-cell>
 			</ng-container>
-			<md-header-row *mdHeaderRowDef="['id', 'name']"></md-header-row>
-			<md-row *mdRowDef="let row; columns: ['id', 'name'];"></md-row>
+      <ng-container mdColumnDef="actions">
+        <md-header-cell *mdHeaderCellDef> </md-header-cell>
+        <md-cell *mdCellDef="let element"> 
+          <button md-button (click)="onDelete(element)"> Delete </button>
+        </md-cell>
+      </ng-container>
+			<md-header-row *mdHeaderRowDef="['id', 'name', 'actions']"></md-header-row>
+			<md-row *mdRowDef="let row; columns: ['id', 'name', 'actions'];"></md-row>
     </md-table>
   `,
   styles: []
@@ -34,6 +40,11 @@ export class ProductsCollectionPageComponent implements OnInit {
   constructor(private store: Store<fromProducts.State>) {
     this.products$ = store.select(fromProducts.getProductCollection);
 		this.dataSource = new ProductDataSource(this.products$);
+  }
+
+  onDelete(product) {
+    console.log("delete", product);
+    this.store.dispatch( new collection.RemoveProduct(product));
   }
 
   ngOnInit() {

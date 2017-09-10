@@ -30,6 +30,26 @@ export function reducer(state = initialState, action: collection.Actions): State
       };
     }
 
+		case collection.REMOVE_PRODUCT_FAIL: {
+      const product = action.payload;
+
+      if (state.ids.indexOf(product.id) > -1) {
+        return state;
+      }
+
+      return Object.assign({}, state, {
+        ids: [...state.ids, product.id],
+      });
+    }    
+
+		case collection.REMOVE_PRODUCT_SUCCESS: {
+      const product = action.payload;
+
+      return Object.assign({}, state, {
+        ids: state.ids.filter(id => id !== product.id),
+      });
+    }
+
     default: {
       return state;
     }
