@@ -2,6 +2,7 @@ import 'rxjs/add/operator/let';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
 
 import * as fromProducts from '../reducers';
 import * as collection from '../actions/collection';
@@ -16,6 +17,9 @@ import { Product } from '../models/product';
         [cart]="cart$ | async"
         [products]="products$ | async">
       </app-shopping-list>
+      <div class="centered">
+        <button md-raised-button color="accent" (click)="onCheckoutClicked()">Checkout</button>
+      </div>
     </md-sidenav>
     <app-product-preview-list 
       [cart]="cart$ | async"
@@ -24,13 +28,16 @@ import { Product } from '../models/product';
       (remove)="removeFromCart($event)">
     </app-product-preview-list>
   `,
-  styles: []
+  styles: [
+    `.centered { text-align: center; }`,
+    `.mat-raised-button { margin-top: 16px; }`
+  ]
 })
 export class CollectionPageComponent implements OnInit {
   products$: Observable<Product[]>;
     cart$: Observable<{}>;
 
-  constructor(private store: Store<fromProducts.State>) {
+  constructor(private store: Store<fromProducts.State>, private router: Router) {
     this.products$ = store.select(fromProducts.getProductCollection);
     this.cart$ = store.select(fromProducts.getCartQuantities);
   }
@@ -45,5 +52,9 @@ export class CollectionPageComponent implements OnInit {
 
   removeFromCart(item: Product) {
     this.store.dispatch(new cart.RemoveItem(item));
+  }
+
+  onCheckoutClicked() {
+    this.router.navigate(['/products/checkout']);
   }
 }

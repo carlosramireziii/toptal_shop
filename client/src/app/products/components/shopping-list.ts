@@ -15,14 +15,9 @@ import { Product } from '../models/product';
       </md-list-item>
       <md-divider></md-divider>
     </md-list>
-    <div class="centered">
-      <button md-raised-button color="accent">Checkout</button>
-    </div>
   `,
   styles: [
   `
-  .centered { text-align: center; }
-  .mat-raised-button { margin-top: 16px; }
   `
   ]
 })
