@@ -8,10 +8,13 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { ComponentsModule } from './components';
 import { CollectionEffects } from './effects/collection';
+import { OrderEffects } from './effects/order';
 
 import { CollectionPageComponent } from './containers/collection-page';
+import { CheckoutPageComponent } from './containers/checkout-page';
 
 import { ProductService } from './services/product';
+import { OrderService } from './services/order';
 
 import { reducers } from './reducers';
 
@@ -22,18 +25,19 @@ import { reducers } from './reducers';
     ComponentsModule,
     HttpClientModule,
     RouterModule.forChild([
-      { 
-        path: '', component: CollectionPageComponent 
-      },
+      { path: '', component: CollectionPageComponent },
+      { path: 'checkout', component: CheckoutPageComponent }
     ]),
     StoreModule.forFeature('products', reducers),
-    EffectsModule.forFeature([CollectionEffects]),
+    EffectsModule.forFeature([CollectionEffects, OrderEffects]),
   ],
   declarations: [
-    CollectionPageComponent
+    CollectionPageComponent,
+    CheckoutPageComponent,
   ],
   providers: [
-    ProductService
+    ProductService,
+    OrderService
   ]
 })
 export class ProductsModule { }
