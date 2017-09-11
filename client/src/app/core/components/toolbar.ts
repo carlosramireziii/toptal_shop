@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { User } from '../../auth/models/user';
 
 @Component({
   selector: 'app-toolbar',
@@ -10,15 +12,16 @@ import { Router } from '@angular/router';
       <span class="fill-remaining-space"></span>
 
       <div class="action-list">
-        <button md-icon-button>
-          <md-icon>shopping_cart</md-icon>
-        </button>
         <button md-icon-button [mdMenuTriggerFor]="appMenu">
           <md-icon>more_vert</md-icon>
         </button>
         <md-menu #appMenu="mdMenu">
-          <button md-menu-item (click)="onClickRegister()"> Register </button>
-          <button md-menu-item (click)="onClickLogin()"> Login </button>
+          <div *ngIf="!loggedIn">
+            <button md-menu-item (click)="onClickLogin()"> Login </button>
+          </div>
+          <div *ngIf="loggedIn">
+            <button md-menu-item (click)="onClickLogout()"> Logout </button>
+          </div>
         </md-menu>
       </div>
     </md-toolbar>
@@ -29,12 +32,14 @@ import { Router } from '@angular/router';
   ]
 })
 export class ToolbarComponent {
-  onClickRegister() {
-  //this.router.navigate(['auth/register']);
-  }
+  @Input() loggedIn: boolean;
 
   onClickLogin() {
     this.router.navigate(['auth/login']);
+  }
+
+  onClickLogout() {
+    console.log("Logout");
   }
 
   constructor(private router: Router) {}
